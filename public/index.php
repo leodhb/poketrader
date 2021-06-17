@@ -1,8 +1,6 @@
 <?php
     include_once '../app/autoload.php';
     use Libraries\Route;
-    use Libraries\Database;
-    $conn = new Database();
 ?>
 
 <!DOCTYPE html>
