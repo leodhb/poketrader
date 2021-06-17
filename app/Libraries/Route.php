@@ -9,7 +9,7 @@ class Route {
 
     public function __construct() {
         $url = $this->url() ? $this->url() : [0];
-        $this->method = "index";
+        $this->method = 'index';
 
         //this project only have a single Trade controller, so we don't need to check an URL to load
         $this->controller = new Trade();
@@ -17,9 +17,9 @@ class Route {
         if(method_exists($this->controller, $url[0])) {
             $this->method = $url[0];
             unset($url[0]);
-            $this->controller->{$this->method}();
         }
 
+        $this->controller->{$this->method}();
         //var_dump($this);
     }
 
