@@ -32,4 +32,5 @@ class Route {
 
         return $url;
     }
+
 }
