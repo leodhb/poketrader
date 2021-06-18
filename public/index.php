@@ -11,9 +11,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POKETRADER</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" integrity="undefined" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="http://localhost/poketrader/css/styles.css">
+    
 </head>
 <body>
     <?php $route = new Route(); ?>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/script.js"></script>
+    
 </body>
 </html>
