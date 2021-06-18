@@ -1,14 +1,20 @@
 <?php
 
 namespace Libraries;
+use Models\Trade;
 
 class Controller {
+
     public function model($model) {
-        require_once '../app/Models/' . $model . '.php';
-        return new $model;
+        switch($model) {
+            case 'Trade':
+                return new Trade();
+            default: 
+                die('Model not found');
+        }
     }
 
-    public function view ($view, $data = []) {
+    public function view($view, $data = []) {
         $path = '../app/Views/'.$view.'.php';
         if(file_exists($path)) {
             require_once $path;
