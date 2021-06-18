@@ -13,7 +13,7 @@ class Controller {
                 die('Model not found');
         }
     }
-
+    
     public function view($view, $data = []) {
         $path = '../app/Views/'.$view.'.php';
         if(file_exists($path)) {

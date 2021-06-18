@@ -6,7 +6,7 @@ use Libraries\Controller;
 class Trade extends Controller{
     
     private $tradeModel;
-    
+
     public function __construct()
     {
        $this->tradeModel = $this->model('Trade'); 
@@ -31,6 +31,7 @@ class Trade extends Controller{
 
     public function history() 
     {
-        $this->view('pages/history');
+        $data = $this->tradeModel->getHistory();
+        $this->view('pages/history', $data);
     }
 }
