@@ -109,3 +109,13 @@ div.pokedex {
 .player-name {
     cursor: pointer !important;
 }
+
+.link-header {
+    background-color: rgba(0,0,0,0.19);
+    border-radius: 20px;
+    margin-right: 0.3em;
+    margin-left: 0.3em;
+    color: #fff !important;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
