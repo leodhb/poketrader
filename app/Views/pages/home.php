@@ -17,7 +17,7 @@
                             <input type="text" id="search_input_p1" class="form-control search-input" placeholder="Procure por um Pokémon">
                         </div>
                         <div class="col-3 p-0">
-                            <button class="btn btn-primary w-100 search-btn" id="search_btn_p1"><i class="fas fa-plus"></i> Adicionar</button>
+                            <button class="btn btn-primary w-100 search-btn" id="search_btn_p1"><i class="fas fa-plus"></i> Add</button>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                             <input type="text" id="search_input_p2" class="form-control search-input" placeholder="Procure por um Pokémon">
                         </div>
                         <div class="col-3 p-0">
-                            <button class="btn btn-primary w-100 search-btn" id="search_btn_p2"><i class="fas fa-plus"></i> Adicionar</button>
+                            <button class="btn btn-primary w-100 search-btn" id="search_btn_p2"><i class="fas fa-plus"></i> Add</button>
                         </div>
                     </div>
                 </div>
