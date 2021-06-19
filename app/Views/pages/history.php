@@ -15,7 +15,7 @@
             ?>
                 <div class="row mb-4 trade-history-row p-2">
                     <div class="col-12 py-4 text-center">
-                        <h5>Troca realizada em <?= $trade->created_at?> entre <b><?= $trade->player_1?></b> e <b><?= $trade->player_1?></b><h5>
+                        <h5>Troca realizada em <?= $trade->created_at?> entre <b><?= $trade->player_1?></b> e <b><?= $trade->player_2?></b><h5>
                         <hr>
                     </div>
                     <div class="col-lg-5 col-12">
