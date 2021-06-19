@@ -3,9 +3,11 @@ $(document).ready(function () {
   let player2_deck = [];
   let xp_sum_p1 = 0;
   let xp_sum_p2 = 0;
+  let player1_name = 'PLAYER 1';
+  let player2_name = 'PLAYER 2';
 
   updateTradePoints();
-
+  updatePlayerData();
   /* ACTION LISTENERS */
   $(document).on("click", ".close-btn", function () {
     let delete_id = this.id;
@@ -14,7 +16,6 @@ $(document).ready(function () {
   });
 
   $(".search-btn").click(function (e) {
-    console.log(this.id);
     let pokedex_id = "";
     let searchbox_id = "";
     let pokedex_lenght = 0;
@@ -40,7 +41,6 @@ $(document).ready(function () {
         type: "GET",
         dataType: "json",
         success: function (data) {
-          console.log("entrou aqui");
           const props = {
             pokemon_img: data["sprites"]["front_default"],
             pokemon_name: pokemon,
@@ -88,8 +88,8 @@ $(document).ready(function () {
       $.ajax({
         type: "POST",
         data: {
-          player1: "PLAYER__1",
-          player2: "PLAYER__2",
+          player1: player1_name,
+          player2: player2_name,
           trade_data: btoa(trade_data),
         },
         success: function (response) {
@@ -104,6 +104,35 @@ $(document).ready(function () {
     }
   });
 
+  $('.btn-edit-name').click(function() {
+    const name_id = this.id.split("_").pop();
+
+    Swal.fire({
+      title: 'Informe seu nome',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off'
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Alterar',
+      showLoaderOnConfirm: true,
+      preConfirm: (username) => {
+        if(username === '' || username.length < 3) {
+          Swal.showValidationMessage(
+            `O nome deve ter pelo menos 3 letras`
+          );
+        }
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        switch(name_id) {
+          case 'p1': player1_name = result.value; break;
+          case 'p2': player2_name = result.value;
+        }
+        updatePlayerData();
+      }
+    })
+  });
   /* DOM MANIPULATORS */
   const renderPokemonCard = (props) => {
     $(props.pokedex_id).append(`<div class="col-md-6 col-12 p-2" id="pokemon_${props.pokemon_id}${props.diff}">
@@ -170,6 +199,11 @@ $(document).ready(function () {
     $("p#display_xp_conclusion").html(getDisplayMessage());
   }
 
+  function updatePlayerData() {
+    $('#player_name_p1').html(player1_name);
+    $('#player_name_p2').html(player2_name);
+  }
+
   function resetPokedex() {
     player1_deck = player2_deck = [];
     updateTradePoints();
@@ -181,7 +215,6 @@ $(document).ready(function () {
   function getDisplayMessage() {
     let display_message = "";
     let percentage_difference = percentage(xp_sum_p1, xp_sum_p2);
-    console.log("porcentagem: ", percentage_difference);
 
     if (xp_sum_p1 === 0 && xp_sum_p2 === 0) {
       display_message = "Pokedex vazio";

@@ -10,7 +10,7 @@
         <div class="col-md-6 text-center p-3">
             <div class="pokedex-outer">
                 <div class="pokedex pokedex-red">
-                    <h1>PLAYER 1</h1>
+                    <h1 class="player-name mr-4"><em id="player_name_p1">PLAYER 1</em> <button class="btn btn-primary ml-4 btn-edit-name" id="name_btn_p1"><i class="fas fa-user-edit"></i></button> </h1>
                     <div class="row p-1 search-wrapper">
                         <div class="col-9 p-0">
                             <input type="text" id="search_input_p1" class="form-control search-input" placeholder="Procure por um Pokémon">
@@ -30,7 +30,7 @@
         <div class="col-md-6 text-center p-3">
             <div class="pokedex-outer">
                 <div class="pokedex pokedex-blue">
-                    <h1>PLAYER 2</h1>
+                    <h1 class="player-name mr-4"><em id="player_name_p2">PLAYER 2</em> <button class="btn btn-primary ml-4 btn-edit-name" id="name_btn_p2"><i class="fas fa-user-edit"></i></button> </h1>
                     <div class="row p-1 search-wrapper">
                         <div class="col-9 p-0">
                             <input type="text" id="search_input_p2" class="form-control search-input" placeholder="Procure por um Pokémon">
@@ -48,8 +48,11 @@
             </div>
         </div>
         <div class="col-12 text-center">
-            <p id="display_xp_conclusion"></p>
-            <button class="btn btn-primary" id="trade_btn">TROCAR</button>
+            <div class="alert alert-primary" role="alert">
+                <p><b>Informação sobre a troca:</b></p>
+                <p id="display_xp_conclusion"></p>
+            </div>
+            <button class="btn btn-primary btn-lg mb-4" id="trade_btn"><i class="fas fa-exchange-alt"></i> TROCAR</button>
         </div>
     </div>
 </div>

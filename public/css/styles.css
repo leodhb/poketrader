@@ -53,7 +53,7 @@ div.pokedex {
 
 .pokemon-card {
     background-color: #2CDAB1;
-    height: 100px;
+    min-height: 100px;
     border-radius: 30px;
     position: relative;
     background-image: url('../img/card-overlay.png');
@@ -104,4 +104,8 @@ div.pokedex {
     background-image: url('../img/header-overlay.png') !important;
     background-repeat: no-repeat;
     background-size: contain;
+}
+
+.player-name {
+    cursor: pointer !important;
 }
