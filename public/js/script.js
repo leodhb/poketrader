@@ -19,6 +19,7 @@ $(document).ready(function () {
     let pokedex_id = "";
     let searchbox_id = "";
     let pokedex_lenght = 0;
+    
 
     switch (this.id) {
       case "search_btn_p1":
@@ -71,11 +72,13 @@ $(document).ready(function () {
         },
       });
     }
-
     $("input").val("");
   });
 
   $("#trade_btn").click(function () {
+    $('#trade_btn').html('Trocando...');
+
+
     const trade_data = JSON.stringify({ player1_deck, player2_deck });
 
     if(!player1_deck.length || !player2_deck.length) {
@@ -84,6 +87,7 @@ $(document).ready(function () {
         "Os dois jogadores precisam ofertar pelo menos 1 pokémon!",
         "error"
       );
+      $('#trade_btn').html('<i class="fas fa-exchange-alt"></i> TROCAR');
     } else {
       $.ajax({
         type: "POST",
@@ -99,9 +103,11 @@ $(document).ready(function () {
             "Consulte o histórico para mais informações!",
             "success"
           );
+          $('#trade_btn').html('<i class="fas fa-exchange-alt"></i> TROCAR');
         },
       });
     }
+    
   });
 
   $('.btn-edit-name').click(function() {
