@@ -17,7 +17,9 @@ class Controller {
     public function view($view, $data = []) {
         $path = '../app/Views/'.$view.'.php';
         if(file_exists($path)) {
+            require_once '../app/Views/components/header.php';
             require_once $path;
+            require_once '../app/Views/components/footer.php';
         } else {
             die('View not found');
         }
