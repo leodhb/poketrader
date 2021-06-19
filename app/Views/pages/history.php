@@ -4,9 +4,18 @@
             <img src="img/poketrader-logo.png" alt="Logomarca do Pokemon Trade" class="branding img-fluid">
             <h1>Histórico</h1>
             <p class="header-subtitle">Aqui você pode consultar o histórico de trocas entre players</p>
+
+            <?php include_once('../app/Views/components/navbar.php'); ?>
+
         </div>
     </header>
     <div class="row justify-content-center">
+        <?php if(empty($data)):?>
+            <div class="col-12 text-center">
+                <h2>Nenhum registro</h2>
+                <h5 class="text-secondary">Realize uma troca para que ela apareça aqui</h5>
+            </div>
+        <?php endif;?>
         <div class="col-12">
             <?php foreach($data as $trade): 
                 $trade_data = json_decode(base64_decode($trade->trade_data));

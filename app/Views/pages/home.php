@@ -4,6 +4,7 @@
             <img src="img/poketrader-logo.png" alt="Logomarca do Pokemon Trade" class="branding img-fluid">
             <h1>Bem-vindo ao PokeTrader!</h1>
             <p class="header-subtitle">Aqui você e seu amigo podem trocar 1 a 6 pokémons cada</p>
+            <?php include_once('../app/Views/components/navbar.php'); ?>
         </div>
     </header>
     <div class="row justify-content-center">
