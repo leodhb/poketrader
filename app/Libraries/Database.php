@@ -5,10 +5,10 @@ namespace Libraries;
 use PDO, PDOException;
 
 class Database {
-    private $host = 'localhost';
-    private $user = 'leod';
+    private $host = '108.167.169.119';
+    private $user = 'leodin04_ash';
     private $password = 'cG9rZXRyYWRlcmJlbW1hc3Nh';
-    private $db_name = 'poketrader_leod';
+    private $db_name = 'leodin04_poketrader';
     private $connection;
     private $stmt;
 
