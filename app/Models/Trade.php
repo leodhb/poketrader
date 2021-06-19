@@ -22,7 +22,7 @@ class Trade {
     }
 
     public function getHistory() {
-        $this->db->query('SELECT * FROM trades');
+        $this->db->query('SELECT * FROM trades ORDER BY id DESC');
         return $this->db->fetchAll();
     }
 }
