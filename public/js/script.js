@@ -6,6 +6,7 @@ $(document).ready(function () {
 
   updateTradePoints();
 
+  /* ACTION LISTENERS */
   $(document).on("click", ".close-btn", function () {
     let delete_id = this.id;
     let pokedex_id = $(this).attr("data-pokedex");
@@ -31,7 +32,6 @@ $(document).ready(function () {
     }
 
     let pokemon = $(searchbox_id).val().toLowerCase();
-    console.log("TAMANHO", pokedex_lenght);
 
     if (pokemon) {
       const pokeApi = `https://pokeapi.co/api/v2/pokemon/${pokemon}/`;
@@ -40,6 +40,7 @@ $(document).ready(function () {
         type: "GET",
         dataType: "json",
         success: function (data) {
+          console.log("entrou aqui");
           const props = {
             pokemon_img: data["sprites"]["front_default"],
             pokemon_name: pokemon,
@@ -54,42 +55,67 @@ $(document).ready(function () {
               pokedex_lenght < 6
                 ? player1_deck.push(props) && renderPokemonCard(props)
                 : alert("Você não pode adicionar mais que 6 pokémons");
-                updateTradePoints();
+              updateTradePoints();
               break;
             case "#pokedex_p2":
               pokedex_lenght < 6
                 ? player2_deck.push(props) && renderPokemonCard(props)
                 : alert("Você não pode adicionar mais que 6 pokémons");
-                updateTradePoints();
+              updateTradePoints();
           }
         },
-        error: function () {},
+        error: function (jqXHR, textStatus, errorThrown) {
+          if (jqXHR.status === 404) {
+            Swal.fire("Erro!", "O Pokémon não foi encontrado!", "error");
+          }
+        },
       });
     }
 
-    $('input').val('');
+    $("input").val("");
   });
 
+  $("#trade_btn").click(function () {
+    const trade_data = JSON.stringify({ player1_deck, player2_deck });
+
+    if(!player1_deck.length || !player2_deck.length) {
+      Swal.fire(
+        "UEPAAAAAAAAA!",
+        "Os dois jogadores precisam ofertar pelo menos 1 pokémon!",
+        "error"
+      );
+    } else {
+      $.ajax({
+        type: "POST",
+        data: {
+          player1: "PLAYER__1",
+          player2: "PLAYER__2",
+          trade_data: btoa(trade_data),
+        },
+        success: function (response) {
+          resetPokedex();
+          Swal.fire(
+            "Troca realizada com sucesso!",
+            "Consulte o histórico para mais informações!",
+            "success"
+          );
+        },
+      });
+    }
+  });
+
+  /* DOM MANIPULATORS */
   const renderPokemonCard = (props) => {
-    $(props.pokedex_id).append(`<div class="col-md-6 col-12 p-2" id="pokemon_${
-      props.pokemon_id
-    }${props.diff}">
+    $(props.pokedex_id).append(`<div class="col-md-6 col-12 p-2" id="pokemon_${props.pokemon_id}${props.diff}">
         <div class="pokemon-card p-1">
-            <img src="img/close.png" alt="Excluir Pokémon" width="25" height="25" class="close-btn" data-pokedex="${props.pokedex_id.replace(
-              "#",
-              ""
-            )}" id="delete_p1_${props.pokemon_id}${props.diff}">
+            <img src="img/close.png" alt="Excluir Pokémon" width="25" height="25" class="close-btn" data-pokedex="${props.pokedex_id.replace("#","")}" id="delete_p1_${props.pokemon_id}${props.diff}">
             <div class="row">
                 <div class="col-5">
-                    <img id="img1" src="${props.pokemon_img}" alt="${
-      props.pokemon_name
-    }" class="img-responsive">
+                    <img src="${props.pokemon_img}" alt="${props.pokemon_name}" class="img-responsive">
                 </div>
                 <div class="col-5 my-auto text-left">
-                    <h5 class="mt-2 pokemon-name" id="name1">${
-                      props.pokemon_name
-                    }</h5>
-                    <p class="pokemon-pts" id="xp1">${props.pokemon_xp}</p>
+                    <h5 class="mt-2 pokemon-name" id="name1">${props.pokemon_name}</h5>
+                    <p class="pokemon-pts" id="xp1"><b>XP: </b>${props.pokemon_xp}</p>
                 </div>
             </div>
         </div>
@@ -115,18 +141,26 @@ $(document).ready(function () {
     updateTradePoints();
   };
 
+  /* AUTOCOMPLETE */
+  $.getJSON("json/pokemon_names.json", function (data) {
+    const autocomplete_tags = JSON.parse(JSON.stringify(data));
 
-  /* this type of function cannot use arrow syntax */
+    $("#search_input_p1,#search_input_p2").autocomplete({
+      source: autocomplete_tags,
+      minLength: 3,
+    });
+  });
+
+  /* AUX FUNCTIONS - this type of function cannot use arrow syntax */
   function updateTradePoints() {
-
-    if(player1_deck.length) {
-      xp_sum_p1 = player1_deck.map(p => p.pokemon_xp).reduce((a, b) => a + b);
+    if (player1_deck.length) {
+      xp_sum_p1 = player1_deck.map((p) => p.pokemon_xp).reduce((a, b) => a + b);
     } else {
       xp_sum_p1 = 0;
     }
-    
-    if(player2_deck.length) {
-      xp_sum_p2 = player2_deck.map(p => p.pokemon_xp).reduce((a, b) => a + b);
+
+    if (player2_deck.length) {
+      xp_sum_p2 = player2_deck.map((p) => p.pokemon_xp).reduce((a, b) => a + b);
     } else {
       xp_sum_p2 = 0;
     }
@@ -136,26 +170,31 @@ $(document).ready(function () {
     $("p#display_xp_conclusion").html(getDisplayMessage());
   }
 
+  function resetPokedex() {
+    player1_deck = player2_deck = [];
+    updateTradePoints();
+
+    $("#pokedex_p1").empty();
+    $("#pokedex_p2").empty();
+  }
 
   function getDisplayMessage() {
-    let display_message = '';
+    let display_message = "";
     let percentage_difference = percentage(xp_sum_p1, xp_sum_p2);
-    console.log('porcentagem: ', percentage_difference);
+    console.log("porcentagem: ", percentage_difference);
 
-
-    if(xp_sum_p1 === 0 && xp_sum_p2 === 0) {
-      display_message = 'Pokedex vazio';
-    } else if(percentage_difference > 10) {
-      display_message = 'Esta troca não é justa';
+    if (xp_sum_p1 === 0 && xp_sum_p2 === 0) {
+      display_message = "Pokedex vazio";
+    } else if (percentage_difference > 10) {
+      display_message = "Esta troca não é justa";
     } else {
-      display_message = 'Esta troca é Justa!';
+      display_message = "Esta troca é Justa!";
     }
 
     return display_message;
   }
 
   function percentage(a, b) {
-    return  100 * Math.abs( ( a - b ) / ( (a+b)/2 ) );
+    return 100 * Math.abs((a - b) / ((a + b) / 2));
   }
-  
 });
