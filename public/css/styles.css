@@ -103,9 +103,6 @@ div.pokedex {
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
     color: white;
-    background-image: url('../img/header-overlay.png') !important;
-    background-repeat: no-repeat;
-    background-size: contain;
 }
 
 .player-name {
@@ -129,3 +126,14 @@ div.pokedex {
     bottom: 0;
     width: 100%;
   }
+
+
+  @media (min-width:1025px) { 
+    .poketrader-header {
+        background-image: url('../img/header-overlay.png') !important;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+  }
+
+
