@@ -15,13 +15,13 @@ class Controller {
     }
     
     public function view($view, $data = []) {
-        $path = '../app/Views/'.$view.'.php';
+        $path = dirname(__FILE__) . '/../Views/'.$view.'.php';
         if(file_exists($path)) {
-            require_once '../app/Views/components/header.php';
+            require_once  dirname(__FILE__) . '/../Views/components/header.php';
             require_once $path;
-            require_once '../app/Views/components/footer.php';
+            require_once dirname(__FILE__) . '/../Views/components/footer.php';
         } else {
-            die('View not found');
+            die('View not found' . $path);
         }
     }
 
