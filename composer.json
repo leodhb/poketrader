@@ -1,8 +1,16 @@
 {
+  "name": "leodhb/poketrader",
+  "description": "A Simple Pokémon Trade Calculator",
+  "type": "project",
+  "require": {
+    "php": ">=5.5.9"
+  },
   "require-dev": {
     "phpunit/phpunit": "^8.5"
   },
   "autoload": {
-    "classmap": ["app/"]
-    }
+    "classmap": [
+      "app/"
+    ]
+  }
 }
