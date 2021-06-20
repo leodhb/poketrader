@@ -1,7 +1,11 @@
 <div class="container">
     <header class="row poketrader-header">
         <div class="col-12 text-center mt-4 mb-2">
-            <img src="img/poketrader-logo.png" alt="Logomarca do Pokemon Trade" class="branding img-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-12">
+                    <img src="img/poketrader-logo.png" alt="Logomarca do Pokemon Trade" class="img-fluid">
+                </div>
+            </div>
             <h1>Bem-vindo ao PokeTrader!</h1>
             <p class="header-subtitle">Aqui você e seu amigo podem trocar 1 a 6 pokémons cada</p>
             <?php include_once('../app/Views/components/navbar.php'); ?>
@@ -17,7 +21,7 @@
                             <input type="text" id="search_input_p1" class="form-control search-input" placeholder="Procure por um Pokémon">
                         </div>
                         <div class="col-3 p-0">
-                            <button class="btn btn-primary w-100 search-btn" id="search_btn_p1"><i class="fas fa-plus"></i></button>
+                            <button class="btn btn-primary w-100 search-btn" id="search_btn_p1"><i class="fas fa-plus"></i>  </button>
                         </div>
                     </div>
                 </div>
