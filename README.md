@@ -3,6 +3,9 @@
 </p>
 <h1 align="center">PokéTrader - A Simple Pokémon trade calculator</h1>
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+![Heroku](https://heroku-badge.herokuapp.com/?app=poketrader-leod)
+
 Deploy [here](https://poketrader-leod.herokuapp.com/)
 
 
