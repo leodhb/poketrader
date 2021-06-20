@@ -25,10 +25,7 @@ div.pokedex {
     background-size: contain;
 }
 
-.search-wrapper {
-    padding-left: 2rem !important;
-    padding-right: 2rem !important;
-}
+
 .search-input {
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
@@ -133,6 +130,11 @@ div.pokedex {
         background-image: url('../img/header-overlay.png') !important;
         background-repeat: no-repeat;
         background-size: contain;
+    }
+
+    .search-wrapper {
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
     }
   }
 
