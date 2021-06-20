@@ -55,7 +55,7 @@ $(document).ready(function () {
             case "#pokedex_p1":
               pokedex_lenght < 6
                 ? player1_deck.push(props) && renderPokemonCard(props)
-                : alert("Você não pode adicionar mais que 6 pokémons");
+                : Swal.fire("Erro!", "Você não pode adicionar mais que 6 pokémons", "error");
               updateTradePoints();
               break;
             case "#pokedex_p2":
