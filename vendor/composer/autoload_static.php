@@ -67,6 +67,7 @@ class ComposerStaticInitee8bb891a6cd9474db3c615b93c7ff55
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Controllers\\Trade' => __DIR__ . '/../..' . '/app/Controllers/Trade.php',
+        'Helpers\\ArrayChecker' => __DIR__ . '/../..' . '/app/Helpers/ArrayChecker.php',
         'Helpers\\JsonChecker' => __DIR__ . '/../..' . '/app/Helpers/JsonChecker.php',
         'Libraries\\Controller' => __DIR__ . '/../..' . '/app/Libraries/Controller.php',
         'Libraries\\Database' => __DIR__ . '/../..' . '/app/Libraries/Database.php',
