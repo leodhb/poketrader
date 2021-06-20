@@ -21,7 +21,13 @@ CREATE TABLE `trades` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 ~~~~
-3. Now just clone this repository to your apache2 localhost folder
+3. Clone this repository to your apache2 localhost folder
+4. Install Dependencies by running ```composer install```
+
+
+## Tests
+Model and Helper classes have been fully tested. 
+You can see all test files [here](https://github.com/leodhb/poketrader/tree/main/tests/app). And to run the tests just run the command ```php vendor/bin/phpunit --colors  tests```
 
 ## Questions?
 You can contact me through social media or email me at henrikleod@gmail.com. I'll be glad to help 💜
