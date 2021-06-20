@@ -1,7 +1,10 @@
 <?php
 
 namespace Controllers;
+
+use Exception;
 use Libraries\Controller;
+use Helpers\JsonChecker;
 
 class Trade extends Controller{
     
@@ -22,6 +25,7 @@ class Trade extends Controller{
                 'player2' => trim($trade['player2']),
                 'trade_data' => trim($trade['trade_data'])
             ];
+
             $this->tradeModel->trade($data);
         }
 
