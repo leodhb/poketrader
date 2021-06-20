@@ -1,7 +1,11 @@
 <div class="container">
 <header class="row poketrader-header mb-4">
         <div class="col-12 text-center mt-4 mb-2">
-            <img src="img/poketrader-logo.png" alt="Logomarca do Pokemon Trade" class="branding img-fluid">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-12">
+                    <img src="img/poketrader-logo.png" alt="Logomarca do Pokemon Trade" class="img-fluid">
+                </div>
+            </div>
             <h1>Histórico</h1>
             <p class="header-subtitle">Aqui você pode consultar o histórico de trocas entre players</p>
 
