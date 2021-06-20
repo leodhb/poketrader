@@ -24,4 +24,8 @@ class Controller {
             die('View not found');
         }
     }
+
+    public function error404() {
+        $this->view('pages/errors/404');
+    }
 }

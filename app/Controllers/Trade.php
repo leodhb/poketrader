@@ -14,7 +14,7 @@ class Trade extends Controller{
 
     public function index() {
         $trade = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        
+
         if(isset($trade)) {
 
             $data = [
