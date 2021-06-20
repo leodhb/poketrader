@@ -5,6 +5,7 @@ $(document).ready(function() {
   let xp_sum_p2 = 0;
   let player1_name = "PLAYER 1";
   let player2_name = "PLAYER 2";
+  let is_fair = false;
 
   loadAutoComplete();
   updateTradePoints();
@@ -77,40 +78,33 @@ $(document).ready(function() {
   });
 
   $("#trade_btn").click(function() {
-      $("#trade_btn").html("Trocando...");
-
-      const trade_data = JSON.stringify({
-          player1_deck,
-          player2_deck
-      });
-
       if (!player1_deck.length || !player2_deck.length) {
           Swal.fire(
               "UEPAAAAAAAAA!",
               "Os dois jogadores precisam ofertar pelo menos 1 pokémon!",
               "error"
           );
-          $("#trade_btn").html('<i class="fas fa-exchange-alt"></i> TROCAR');
-      } else {
-          $.ajax({
-              type: "POST",
-              data: {
-                  player1: player1_name,
-                  player2: player2_name,
-                  trade_data: btoa(trade_data),
-              },
-              success: function(response) {
-                  resetPokedex();
-                  Swal.fire(
-                      "Troca realizada com sucesso!",
-                      "Consulte o histórico para mais informações!",
-                      "success"
-                  );
-                  $("#trade_btn").html('<i class="fas fa-exchange-alt"></i> TROCAR');
-              },
+      } else if (!is_fair) {
+          Swal.fire({
+              title: 'Troca injusta!',
+              text: "Você tem certeza que deseja trocar?",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Sim, desejo trocar!',
+              cancelButtonText: 'Não'
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  confirmTrade();
+              }
           });
+      } else {
+          confirmTrade();
       }
   });
+
+
 
   $(".btn-edit-name").click(function() {
       const name_id = this.id.split("_").pop();
@@ -124,6 +118,7 @@ $(document).ready(function() {
           showCancelButton: true,
           confirmButtonText: "Alterar",
           showLoaderOnConfirm: true,
+          cancelButtonText: 'Cancelar',
           preConfirm: (username) => {
               if (username === "" || username.length < 3) {
                   Swal.showValidationMessage(`O nome deve ter pelo menos 3 letras`);
@@ -146,19 +141,19 @@ $(document).ready(function() {
   /* DOM MANIPULATORS */
   const renderPokemonCard = (props) => {
       $(props.pokedex_id).append(`<div class="col-md-6 col-12 p-2" id="pokemon_${props.pokemon_id}${props.diff}">
-      <div class="pokemon-card p-1">
-          <img src="img/close.png" alt="Excluir Pokémon" width="25" height="25" class="close-btn" data-pokedex="${props.pokedex_id.replace("#","")}" id="delete_p1_${props.pokemon_id}${props.diff}">
-          <div class="row">
-              <div class="col-5">
-                  <img src="${props.pokemon_img}" alt="${props.pokemon_name}" class="img-responsive">
-              </div>
-              <div class="col-5 my-auto text-left">
-                  <h5 class="mt-2 pokemon-name" id="name1">${props.pokemon_name}</h5>
-                  <p class="pokemon-pts" id="xp1"><b>XP: </b>${props.pokemon_xp}</p>
-              </div>
-          </div>
-      </div>
-  </div>`);
+    <div class="pokemon-card p-1">
+        <img src="img/close.png" alt="Excluir Pokémon" width="25" height="25" class="close-btn" data-pokedex="${props.pokedex_id.replace("#","")}" id="delete_p1_${props.pokemon_id}${props.diff}">
+        <div class="row">
+            <div class="col-5">
+                <img src="${props.pokemon_img}" alt="${props.pokemon_name}" class="img-responsive">
+            </div>
+            <div class="col-5 my-auto text-left">
+                <h5 class="mt-2 pokemon-name" id="name1">${props.pokemon_name}</h5>
+                <p class="pokemon-pts" id="xp1"><b>XP: </b>${props.pokemon_xp}</p>
+            </div>
+        </div>
+    </div>
+</div>`);
   };
 
   const removePokemonCard = (delete_id, pokedex_id) => {
@@ -182,16 +177,42 @@ $(document).ready(function() {
 
   /* AUTOCOMPLETE */
   function loadAutoComplete() {
-    $.getJSON("json/pokemon_names.json", function(data) {
-      const autocomplete_tags = JSON.parse(JSON.stringify(data));
+      $.getJSON("json/pokemon_names.json", function(data) {
+          const autocomplete_tags = JSON.parse(JSON.stringify(data));
 
-      $("#search_input_p1,#search_input_p2").autocomplete({
-          source: autocomplete_tags,
-          minLength: 3,
+          $("#search_input_p1,#search_input_p2").autocomplete({
+              source: autocomplete_tags,
+              minLength: 3,
+          });
       });
-    });
   }
-  
+
+  function confirmTrade() {
+      $("#trade_btn").html("Trocando...");
+      const trade_data = JSON.stringify({
+          player1_deck,
+          player2_deck
+      });
+
+      $.ajax({
+          type: "POST",
+          data: {
+              player1: player1_name,
+              player2: player2_name,
+              trade_data: btoa(trade_data),
+          },
+          success: function(response) {
+              resetPokedex();
+              Swal.fire(
+                  "Troca realizada com sucesso!",
+                  "Consulte o histórico para mais informações!",
+                  "success"
+              );
+              $("#trade_btn").html('<i class="fas fa-exchange-alt"></i> TROCAR');
+          },
+      });
+  }
+
   /* AUX FUNCTIONS - this type of function cannot use arrow syntax */
   function updateTradePoints() {
       xp_sum_p1 = player1_deck.length ? player1_deck.map((p) => p.pokemon_xp).reduce((a, b) => a + b) : 0;
@@ -208,7 +229,8 @@ $(document).ready(function() {
   }
 
   function resetPokedex() {
-      player1_deck = player2_deck = [];
+      player1_deck = [];
+      player2_deck = [];
       updateTradePoints();
       $("#pokedex_p1").empty();
       $("#pokedex_p2").empty();
@@ -217,13 +239,17 @@ $(document).ready(function() {
   function getDisplayMessage() {
       let display_message = "";
       let percentage_difference = percentage(xp_sum_p1, xp_sum_p2);
+      is_fair = false;
 
       if (xp_sum_p1 === 0 && xp_sum_p2 === 0) {
-          display_message = "Pokedex vazio";
+          display_message = "Decks vazios";
+      } else if (xp_sum_p1 === 0 || xp_sum_p2 === 0) {
+          display_message = "Há um deck vazio";
       } else if (percentage_difference > 10) {
           display_message = "Esta troca não é justa";
       } else {
           display_message = "Esta troca é Justa!";
+          is_fair = true;
       }
 
       return display_message;
