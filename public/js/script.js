@@ -13,6 +13,7 @@ $(document).ready(function() {
   /* ACTION LISTENERS */
   $(document).on("click", ".close-btn", function() {
       let delete_id = this.id;
+      let pokedex_id = $(this).attr("data-pokedex");
       removePokemonCard(delete_id, pokedex_id);
   });
 
