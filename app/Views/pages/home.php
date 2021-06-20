@@ -11,7 +11,7 @@
             <?php include_once('../app/Views/components/navbar.php'); ?>
         </div>
     </header>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-4">
         <div class="col-md-6 text-center p-3">
             <div class="pokedex-outer">
                 <div class="pokedex pokedex-red">
@@ -52,12 +52,18 @@
                 <div class="row pb-3 justify-content-center" id="display_xp_sum_p2"></div>
             </div>
         </div>
-        <div class="col-12 text-center">
-            <div class="alert alert-primary" role="alert">
-                <p><b>Informação sobre a troca:</b></p>
+
+
+        
+    </div>
+</div>
+
+<div class="container-fluid bottom-nav-pokedex">
+<footer class="col-12 text-center">
+            <div class="alert alert-primary mt-2 pb-0" role="alert">
                 <p id="display_xp_conclusion"></p>
             </div>
             <button class="btn btn-primary btn-lg mb-4" id="trade_btn"><i class="fas fa-exchange-alt"></i> TROCAR</button>
-        </div>
-    </div>
+</footer>
+
 </div>

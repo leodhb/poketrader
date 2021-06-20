@@ -121,3 +121,11 @@ div.pokedex {
     padding-left: 0.5em;
     padding-right: 0.5em;
 }
+
+.bottom-nav-pokedex {
+    overflow: hidden;
+    background-color: #2CDAB1;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+  }
