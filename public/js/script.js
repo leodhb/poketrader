@@ -31,10 +31,10 @@ $(document).ready(function() {
               pokedex_lenght = player2_deck.length;
       }
 
-      let pokemon = $(searchbox_id).val().toLowerCase();
+      let pokemon = $(searchbox_id).val();
 
       if (pokemon) {
-          const pokeApi = `https://pokeapi.co/api/v2/pokemon/${pokemon}/`;
+          const pokeApi = `https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase().replace(/ /g,"-")}/`;
           $.ajax({
               url: pokeApi,
               type: "GET",
